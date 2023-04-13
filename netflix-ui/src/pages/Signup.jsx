@@ -104,6 +104,7 @@ const Container = styled.div`
           showPassword ? "1fr 1fr" : "2fr 1fr"};
         width: 60%;
         input {
+          border-radius: 0.5rem;
           color: black;
           border: none;
           padding: 1.5rem;
@@ -114,6 +115,7 @@ const Container = styled.div`
           }
         }
         button {
+          border-radius: 0.5rem;
           padding: 0.5rem 1rem;
           background-color: #e50914;
           border: none;

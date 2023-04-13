@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { FaSearch, FaSignOutAlt } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
+import { IconContext } from "react-icons";
+import { FaPowerOff } from "react-icons/fa";
 import logo from "../assets/logo.png";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 
 export default function Navbar({ isScrolled }) {
+  const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
   const links = [
@@ -15,6 +18,11 @@ export default function Navbar({ isScrolled }) {
     { name: "Movies", link: "/movies" },
     { name: "My List", link: "/mylist" },
   ];
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+  });
   return (
     <Container>
       <nav className={`flex ${isScrolled ? "scrolled" : ""}`}>
@@ -70,7 +78,11 @@ export default function Navbar({ isScrolled }) {
             signOut(firebaseAuth);
           }}
         >
-          <FaSignOutAlt />
+          <IconContext.Provider
+            value={{ color: "red", className: "global-class-name" }}
+          >
+            <FaPowerOff />
+          </IconContext.Provider>
         </button>
       </nav>
     </Container>
@@ -160,6 +172,9 @@ const Container = styled.div`
           padding: 0.3rem;
         }
       }
+    }
+    button {
+      background-color: black;
     }
   }
 `;
