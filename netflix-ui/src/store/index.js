@@ -21,7 +21,7 @@ export const getGenres = createAsyncThunk("netfloo/genres", async () => {
   } = await axios.get(
     "https://api.themoviedb.org/3/genre/movie/list?api_key=3d39d6bfe362592e6aa293f01fbcf9b9",
   );
-  console.log("Genre", genres);
+
   return genres;
 });
 

@@ -66,7 +66,11 @@ export default function Card({ movieData, isLiked = false }) {
               <div className="genres flex">
                 <ul className="flex">
                   {movieData.genres.map((genre) => {
-                    <li key={`${genre}`}></li>;
+                    return (
+                      <ul class="genre" key={`${genre}`}>
+                        {genre}
+                      </ul>
+                    );
                   })}
                 </ul>
               </div>
@@ -90,8 +94,6 @@ const Container = styled.div`
     z-index: 10;
   }
   .hover {
-
-
     z-index: 90;
     height: max-content;
     width: 20rem;
@@ -105,7 +107,7 @@ const Container = styled.div`
     .image-video-container {
 
       position: relative;
-      height: 140px;
+      height: 177px;
 
       h3 {
         padding: 0.5rem;
@@ -115,7 +117,7 @@ const Container = styled.div`
       }
       img {
         width: 100%;
-        height: 140px;
+        height: 177px;
         object-fit: cover;
         border-radius: 0.3rem;
         top: 0;
@@ -124,7 +126,7 @@ const Container = styled.div`
       }
       video {
         width: 100%;
-        height: 140px;
+        height: 177px;
         object-fit: cover;
         border-radius: 0.3rem;
         top: 0;
@@ -150,7 +152,12 @@ const Container = styled.div`
           &:hover {
             color: #b8b8b8;
           }
+
         }
+
+      }
+      .genre {
+        margin-right: 1vw;
       }
     }
   }

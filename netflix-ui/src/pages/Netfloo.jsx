@@ -25,7 +25,6 @@ export default function Netfloo() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(genresLoaded);
     if (genresLoaded) {
       dispatch(fetchMovies({ type: "all" }));
     }
