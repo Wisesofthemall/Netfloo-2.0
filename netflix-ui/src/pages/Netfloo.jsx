@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import backgroundImage from "../assets/login.jpg";
 import MovieLogo from "../assets/Strange.png";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies, getGenres } from "../store";
 
 export default function Netfloo() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.netfloo.movies);
+  const genresLoaded = useSelector((state) => state.netfloo.genresLoaded);
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => window.onscroll == null;
   };
+
+  useEffect(() => {
+    dispatch(getGenres());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log(genresLoaded);
+    if (genresLoaded) {
+      dispatch(fetchMovies({ type: "all" }));
+    }
+  }, [dispatch, genresLoaded]);
+
   return (
     <Container>
       <Navbar isScrolled={isScrolled} />
@@ -26,7 +45,12 @@ export default function Netfloo() {
             <img src={MovieLogo} alt="Movie Logo" />
           </div>
           <div className="buttons flex">
-            <button className="flex j-center a-center">
+            <button
+              className="flex j-center a-center"
+              onClick={() => {
+                navigate("/player");
+              }}
+            >
               <FaPlay /> Play
             </button>
             <button className="flex j-center a-center">

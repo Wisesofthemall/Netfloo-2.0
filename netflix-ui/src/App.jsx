@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Netfloo from "./pages/Netfloo";
+import Player from "./pages/Player";
 import Signup from "./pages/Signup";
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/" element={<Netfloo />} />
+        <Route exact path="/player" element={<Player />} />
       </Routes>
     </BrowserRouter>
   );

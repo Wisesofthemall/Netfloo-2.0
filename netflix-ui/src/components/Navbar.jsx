@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { FaPowerOff } from "react-icons/fa";
+import { FaSignOutAlt } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
@@ -42,19 +42,17 @@ export default function Navbar({ isScrolled }) {
         </div>
         <div className="right flex a-center">
           <div className={`search ${showSearch ? "show-search" : ""}`}>
-            <button>
-              <button
-                onFocus={() => {
-                  setShowSearch(true);
-                }}
-                onBlur={() => {
-                  if (!inputHover) {
-                    setShowSearch(false);
-                  }
-                }}
-              >
-                <FaSearch />
-              </button>
+            <button
+              onFocus={() => {
+                setShowSearch(true);
+              }}
+              onBlur={() => {
+                if (!inputHover) {
+                  setShowSearch(false);
+                }
+              }}
+            >
+              <FaSearch />
             </button>
 
             <input
@@ -73,17 +71,21 @@ export default function Navbar({ isScrolled }) {
             />
           </div>
         </div>
-        <button
+        <div
           onClick={() => {
             signOut(firebaseAuth);
           }}
         >
           <IconContext.Provider
-            value={{ color: "red", className: "global-class-name" }}
+            value={{
+              color: "red",
+              className: "global-class-name",
+              size: "2.5em",
+            }}
           >
-            <FaPowerOff />
+            <FaSignOutAlt />
           </IconContext.Provider>
-        </button>
+        </div>
       </nav>
     </Container>
   );
@@ -174,7 +176,7 @@ const Container = styled.div`
       }
     }
     button {
-      background-color: black;
+      background-color: transparent;
     }
   }
 `;
