@@ -107,7 +107,7 @@ const Container = styled.div`
     .image-video-container {
 
       position: relative;
-      height: 177px;
+      height: 200px;
 
       h3 {
         padding: 0.5rem;
@@ -117,7 +117,7 @@ const Container = styled.div`
       }
       img {
         width: 100%;
-        height: 177px;
+        height: 200px;
         object-fit: cover;
         border-radius: 0.3rem;
         top: 0;
@@ -126,7 +126,7 @@ const Container = styled.div`
       }
       video {
         width: 100%;
-        height: 177px;
+        height: 200px;
         object-fit: cover;
         border-radius: 0.3rem;
         top: 0;
@@ -134,7 +134,7 @@ const Container = styled.div`
         position: absolute;
       }
       .info-container {
-        top: 5rem;
+        top: 7rem;
         position: absolute;
         z-index: 5;
         padding: 1rem;
