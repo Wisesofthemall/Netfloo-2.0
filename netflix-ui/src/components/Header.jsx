@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
-export default function Header({ login }) {
+export default React.memo(function Header({ login }) {
   const navigate = useNavigate();
 
   return (
@@ -19,7 +19,7 @@ export default function Header({ login }) {
       </button>
     </Container>
   );
-}
+});
 const Container = styled.div`
   padding: 0 4rem;
   .logo {

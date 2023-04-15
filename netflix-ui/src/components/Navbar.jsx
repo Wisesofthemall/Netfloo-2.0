@@ -8,7 +8,7 @@ import logo from "../assets/logo.png";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 
-export default function Navbar({ isScrolled }) {
+export default React.memo(function Navbar({ isScrolled }) {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
@@ -89,7 +89,7 @@ export default function Navbar({ isScrolled }) {
       </nav>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   .scrolled {
