@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovies, getGenres } from "../store";
-
+import Slider from "../components/Slider.jsx";
 export default function Netfloo() {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
@@ -59,6 +59,7 @@ export default function Netfloo() {
           </div>
         </div>
       </div>
+      <Slider movies={movies} />
     </Container>
   );
 }
