@@ -2,16 +2,18 @@ import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { fetchMovies, getGenres } from "../store";
 import { firebaseAuth } from "../utils/firebase-config";
 import Navbar from "../components/Navbar";
+import Slider from "../components/Slider.jsx";
+import NotAvailable from "../components/NotAvailable.jsx";
+import SelectGenre from "../components/SelectGenre";
 
 export default function Movies() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.netfloo.movies);
+  const genres = useSelector((state) => state.netfloo.genres);
   const genresLoaded = useSelector((state) => state.netfloo.genresLoaded);
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -36,24 +38,22 @@ export default function Movies() {
       <div className="navbar">
         <Navbar isScrolled={isScrolled} />
       </div>
+
+      <div className="data">
+        <SelectGenre genres={genres} type="movie" />
+
+        {movies.length ? <Slider movies={movies} /> : <NotAvailable />}
+      </div>
     </Container>
   );
 }
 const Container = styled.div`
-  padding: 0 4rem;
-  .logo {
-    img {
-      height: 5rem;
+  .data {
+    margin-top: 8rem;
+    .not-available {
+      text-align: center;
+      color: white;
+      margin-top: 4rem;
     }
-  }
-  button {
-    padding: 0.5rem 1rem;
-    background-color: #e50914;
-    border: none;
-    cursor: pointer;
-    color: white;
-    border-radius: 0.2rem;
-    font-weight: bolder;
-    font-size: 1.05rem;
   }
 `;

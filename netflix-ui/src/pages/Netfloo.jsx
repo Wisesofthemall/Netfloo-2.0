@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import backgroundImage from "../assets/login.jpg";
+import shortclip from "../assets/Strangerthingsclip.mp4";
 import MovieLogo from "../assets/Strange.png";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
@@ -34,11 +34,7 @@ export default function Netfloo() {
     <Container>
       <Navbar isScrolled={isScrolled} />
       <div className="hero">
-        <img
-          src={backgroundImage}
-          alt="background"
-          className="background-image"
-        />
+        <video src={shortclip} autoPlay loop muted></video>
         <div className="container">
           <div className="logo">
             <img src={MovieLogo} alt="Movie Logo" />
@@ -69,7 +65,8 @@ const Container = styled.div`
     .background-image {
       filter: brightness(60%);
     }
-    img {
+
+    video {
       height: 100vh;
       width: 100vw;
     }

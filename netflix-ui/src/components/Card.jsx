@@ -67,7 +67,7 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
                 <ul className="flex">
                   {movieData.genres.map((genre) => {
                     return (
-                      <ul class="genre" key={`${genre}`}>
+                      <ul className="genre" key={`${genre}`}>
                         {genre}
                       </ul>
                     );
@@ -132,6 +132,7 @@ const Container = styled.div`
         top: 0;
         z-index: 5;
         position: absolute;
+
       }
       .info-container {
         top: 7rem;
