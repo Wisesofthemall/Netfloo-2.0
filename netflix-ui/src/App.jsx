@@ -5,6 +5,7 @@ import Movies from "./pages/Movies";
 import Netfloo from "./pages/Netfloo";
 import Player from "./pages/Player";
 import Signup from "./pages/Signup";
+import TVshows from "./pages/TVshows";
 export default function App() {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ export default function App() {
         <Route exact path="/" element={<Netfloo />} />
         <Route exact path="/movies" element={<Movies />} />
         <Route exact path="/player" element={<Player />} />
+        <Route exact path="/tv" element={<TVshows />} />
       </Routes>
     </BrowserRouter>
   );
