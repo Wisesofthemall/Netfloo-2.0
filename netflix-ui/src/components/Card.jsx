@@ -7,9 +7,35 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 import styled from "styled-components";
 import video from "../assets/video.mp4";
+import { onAuthStateChanged } from "firebase/auth";
+import { firebaseAuth } from "../utils/firebase-config";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { removeMovieFromLiked } from "../store";
 export default React.memo(function Card({ movieData, isLiked = false }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [email, setEmail] = useState(undefined);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if (currentUser) {
+      setEmail(currentUser.email);
+    } else {
+      navigate("/login");
+    }
+  });
+
+  const addToList = async () => {
+    try {
+      await axios.post("http://localhost:4000/api/user/add", {
+        email,
+        data: movieData,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container
       onMouseEnter={() => {
@@ -54,9 +80,24 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
                   <RiThumbUpFill title="Like" />
                   <RiThumbDownFill title="Dislike" />
                   {isLiked ? (
-                    <BsCheck title="Remove From List" />
+                    <BsCheck
+                      onClick={() => {
+                        dispatch(
+                          removeMovieFromLiked({
+                            movieId: movieData.id,
+                            email,
+                          }),
+                        );
+                      }}
+                      title="Remove From List"
+                    />
                   ) : (
-                    <AiOutlinePlus title="Add to my list " />
+                    <AiOutlinePlus
+                      onClick={() => {
+                        addToList();
+                      }}
+                      title="Add to my list "
+                    />
                   )}
                 </div>
                 <div className="info">
