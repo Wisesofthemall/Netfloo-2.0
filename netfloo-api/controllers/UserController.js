@@ -7,10 +7,12 @@ module.exports.addToLikedMovies = async (req, res) => {
 
     if (user) {
       const { likedMovies } = user;
-      const movieAlreadyLiked = likedMovies.find(({ id }) => {
-        id === data.id;
-      });
-      if (!movieAlreadyLiked) {
+      const movieAlreadyLiked = likedMovies.findIndex(
+        ({ id }) => id === data.id,
+      );
+      console.log("liked movies", likedMovies);
+      console.log("FOUND ? ", movieAlreadyLiked);
+      if (movieAlreadyLiked == -1) {
         await User.findByIdAndUpdate(
           user._id,
           {

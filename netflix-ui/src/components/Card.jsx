@@ -49,6 +49,7 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
         src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
         alt="movie"
       />
+      <div className="name">{movieData.name}</div>
       {isHovered && (
         <div className="hover">
           <div className="image-video-container">
