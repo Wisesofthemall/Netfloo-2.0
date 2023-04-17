@@ -1,5 +1,6 @@
 const User = require("../models/UserModels.js");
-
+const { getDatabase, onValue, ref, set } = require("firebase/database");
+var YOUTUBE_API_KEY = "AIzaSyBxQZoxk2bmKqGRudoMFPua477bDIas-HU";
 module.exports.addToLikedMovies = async (req, res) => {
   try {
     const { email, data } = req.body;
@@ -10,8 +11,7 @@ module.exports.addToLikedMovies = async (req, res) => {
       const movieAlreadyLiked = likedMovies.findIndex(
         ({ id }) => id === data.id,
       );
-      console.log("liked movies", likedMovies);
-      console.log("FOUND ? ", movieAlreadyLiked);
+
       if (movieAlreadyLiked == -1) {
         await User.findByIdAndUpdate(
           user._id,
@@ -75,4 +75,37 @@ module.exports.removeFromLikedMovies = async (req, res) => {
     console.log("ERROR DELETING MOVIES");
     return res.json({ msg: "Error deleting movies" });
   }
+};
+
+module.exports.getYTVideo = async (req, res) => {
+  res.json({ msg: "Error deleting movies" });
+  console.log("THE REQ", req);
+  const { movieId, name } = req.params;
+  console.log("movie id and name", movieId, name);
+  const reference = ref(db, "Videos/" + movieId);
+  const db = getDatabase();
+  function writeVideoData(movieId, link) {
+    const reference = ref(db, "Videos/" + movieId);
+    set(reference, {
+      movieId: movieId,
+      link: link,
+    });
+  }
+
+  onValue(reference, async (snapshot) => {
+    if (snapshot === null) {
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${name} trailer&type=video&key=${YOUTUBE_API_KEY}`;
+      try {
+        const response = await axios.get(url);
+        console.log("the response", response);
+        // writeVideoData(movieId, r);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      const data = snapshot.val();
+      console.log("theytcyttc", data);
+      return res.json({ msg: "success", data: data });
+    }
+  });
 };

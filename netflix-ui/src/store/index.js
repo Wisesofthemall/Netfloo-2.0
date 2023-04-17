@@ -13,6 +13,7 @@ const initialState = {
   movies: [],
   genresLoaded: false,
   genres: [],
+  video: [],
 };
 
 export const getGenres = createAsyncThunk("netfloo/genres", async () => {
@@ -103,6 +104,18 @@ export const removeMovieFromLiked = createAsyncThunk(
   },
 );
 
+export const getYTVideo = createAsyncThunk(
+  "netfloo/video",
+  async ({ movieId, name }) => {
+    console.log("BOOM WE HERE");
+    const { data } = await axios.get("http://localhost:4000/api/user/video", {
+      name: name,
+      movieId: movieId,
+    });
+    return data;
+  },
+);
+
 const NetflooSlice = createSlice({
   name: "Netfloo",
   initialState,
@@ -122,6 +135,9 @@ const NetflooSlice = createSlice({
     });
     builder.addCase(removeMovieFromLiked.fulfilled, (state, action) => {
       state.movies = action.payload;
+    });
+    builder.addCase(getYTVideo.fulfilled, (state, action) => {
+      state.video = action.payload;
     });
   },
 });

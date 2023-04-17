@@ -40,16 +40,18 @@ export default function UserLiked() {
       <div className="content flex column">
         <h1> My List</h1>
         <div className="grid flex">
-          {movies.map((movie, index) => {
-            return (
-              <Card
-                movieData={movie}
-                index={index}
-                key={(movie.id, index)}
-                isLiked={true}
-              />
-            );
-          })}
+          {movies
+            ? movies.map((movie, index) => {
+                return (
+                  <Card
+                    movieData={movie}
+                    index={index}
+                    key={(movie.id, index)}
+                    isLiked={true}
+                  />
+                );
+              })
+            : null}
         </div>
       </div>
     </Container>

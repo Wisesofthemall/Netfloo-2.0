@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoPlayCircleSharp } from "react-icons/io5";
 import { RiThumbDownFill, RiThumbUpFill } from "react-icons/ri";
+import { getYTVideo } from "../store";
 import { BsCheck } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 import styled from "styled-components";
 import video from "../assets/video.mp4";
+import logo from "../assets/logo.png";
+
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 import axios from "axios";
@@ -15,6 +18,7 @@ import { removeMovieFromLiked } from "../store";
 export default React.memo(function Card({ movieData, isLiked = false }) {
   const [isHovered, setIsHovered] = useState(false);
   const [email, setEmail] = useState(undefined);
+  const [vid, setVid] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,6 +40,13 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    const data = dispatch(
+      getYTVideo({ movieId: movieData.id, name: movieData.name }),
+    );
+    console.log("THE DATA", data);
+    setVid(data);
+  }, []);
   return (
     <Container
       onMouseEnter={() => {
@@ -45,10 +56,13 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
         setIsHovered(false);
       }}
     >
+      <img className="logo" src={logo} alt="" />
       <img
+        className="thumbnail"
         src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
         alt="movie"
       />
+
       <div className="name">{movieData.name}</div>
       {isHovered && (
         <div className="hover">
@@ -129,7 +143,14 @@ const Container = styled.div`
   height: 100%;
   cursor: pointer;
   position: relative;
-  img {
+  .logo {
+    position: inherit;
+    z-index: 5;
+    margin-bottom: -2rem;
+    width :9%;
+    height: 9%;
+  }
+  .thumbnail{
     border-radius: 0.2rem;
     width: 100%;
     height: 100%;
@@ -145,7 +166,7 @@ const Container = styled.div`
     border-radius: 0.3rem;
     box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
     background-color: #181818;
-    transition: 0.3s ease-in-out;
+    transition: 1s ease-in-out;
     .image-video-container {
 
       position: relative;
@@ -191,7 +212,7 @@ const Container = styled.div`
         svg {
           font-size: 2rem;
           cursor: pointer;
-          transition: 0.3s ease-in-out;
+          transition: 1s ease-in-out;
           &:hover {
             color: #b8b8b8;
           }

@@ -1,11 +1,16 @@
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
 import { firebaseAuth } from "../utils/firebase-config";
-
+import google from "../assets/glogo.webp";
 export default function Login() {
   const navigate = useNavigate();
 
@@ -13,6 +18,13 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const handleGoogle = async () => {
+    try {
+      signInWithPopup(firebaseAuth, new GoogleAuthProvider());
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleLogIn = async () => {
     try {
       const { email, password } = formValue;
@@ -64,6 +76,12 @@ export default function Login() {
               />
 
               <button onClick={handleLogIn}>Log In</button>
+              <img
+                className="google"
+                onClick={handleGoogle}
+                src={google}
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -82,6 +100,10 @@ const Container = styled.div`
     width: 100vw;
     display: grid;
     grid-template-rows: 15vh 85vh;
+    .google {
+      width: 2rem;
+      height: 2rem;
+    }
     .form-container {
       gap: 2rem;
       height: 85vh;

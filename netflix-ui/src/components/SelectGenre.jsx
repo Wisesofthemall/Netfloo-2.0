@@ -12,13 +12,15 @@ export default function SelectGenre({ genres, type }) {
         dispatch(fetchDataByGenre({ genre: e.target.value, type }));
       }}
     >
-      {genres.map((genre) => {
-        return (
-          <option value={genre.id} key={genre.id}>
-            {genre.name}
-          </option>
-        );
-      })}
+      {genres
+        ? genres.map((genre) => {
+            return (
+              <option value={genre.id} key={genre.id}>
+                {genre.name}
+              </option>
+            );
+          })
+        : null}
     </Select>
   );
 }

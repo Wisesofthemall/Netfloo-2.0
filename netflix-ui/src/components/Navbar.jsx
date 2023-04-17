@@ -102,7 +102,7 @@ const Container = styled.div`
     width: 100%;
     justify-content: space-between;
     position: fixed;
-    z-index: 2;
+    z-index: 99;
     padding: 0 4rem;
     align-items: center;
     transition: 0.3s ease-in-out;
