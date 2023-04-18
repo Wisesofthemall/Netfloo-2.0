@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoPlayCircleSharp } from "react-icons/io5";
 import { RiThumbDownFill, RiThumbUpFill } from "react-icons/ri";
@@ -10,13 +10,16 @@ import video from "../assets/video.mp4";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeMovieFromLiked } from "../store";
+import { getYTLink } from "../store";
 export default React.memo(function Card({ movieData, isLiked = false }) {
   const [isHovered, setIsHovered] = useState(false);
   const [email, setEmail] = useState(undefined);
+  const [vid, setVid] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const vidy = useSelector((state) => state.netfloo.video);
 
   onAuthStateChanged(firebaseAuth, (currentUser) => {
     if (currentUser) {
@@ -25,6 +28,11 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
       navigate("/login");
     }
   });
+
+  useEffect(() => {
+    dispatch(getYTLink({ movieId: movieData.id, name: movieData.name }));
+    setVid(vidy.link);
+  }, []);
 
   const addToList = async () => {
     try {
@@ -60,7 +68,16 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
               src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
               alt="movie"
             />
-            <video src={video} autoPlay loop muted />
+            {console.log("the vid", vid)}
+            {vid ? (
+              <iframe
+                title={movieData.name}
+                src={`https://www.youtube.com/embed/${vid}?autoplay=1`}
+                allow="autoplay"
+                allowFullScreen
+              ></iframe>
+            ) : null}
+
             <h3
               onClick={() => {
                 navigate("/player");
@@ -166,7 +183,7 @@ const Container = styled.div`
         z-index: 4;
         position: absolute;
       }
-      video {
+      iframe {
         width: 100%;
         height: 200px;
         object-fit: cover;

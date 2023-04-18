@@ -1,4 +1,10 @@
 const User = require("../models/UserModels.js");
+var YOUTUBE_API_KEY = "AIzaSyCMo_cxoTE3VklCXSaEQy55QCWytx8myLI";
+const axios = require("axios");
+const Atlas = require("../Database/MongoAtlas.js");
+Atlas.run().catch(console.error);
+
+// Atlas.insert(12322143, "youtube.com");
 
 module.exports.addToLikedMovies = async (req, res) => {
   try {
@@ -74,5 +80,36 @@ module.exports.removeFromLikedMovies = async (req, res) => {
   } catch (error) {
     console.log("ERROR DELETING MOVIES");
     return res.json({ msg: "Error deleting movies" });
+  }
+};
+
+module.exports.getYTLink = async (req, res) => {
+  try {
+    const { movieId, name } = req.query;
+
+    const find = await Atlas.find(movieId);
+
+    if (!find) {
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${name} trailer&type=video&key=${YOUTUBE_API_KEY}`;
+
+      const response = await axios.get(url);
+      const link = response.data.items[0].id.videoId;
+      const data = await Atlas.insert(movieId, link).then(async () => {
+        return await Atlas.find(movieId);
+      });
+
+      return res.json({ msg: "Video recieve", movies: data });
+    } else {
+      const unique = await Atlas.find(movieId).then((err, data) => {
+        if (err) {
+          return err;
+        } else {
+          return data[0];
+        }
+      });
+      return res.json({ msg: "Video recieve", movies: unique });
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
