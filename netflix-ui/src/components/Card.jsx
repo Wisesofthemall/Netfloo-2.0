@@ -90,7 +90,7 @@ export default React.memo(function Card({
             {vid ? (
               <iframe
                 title={movieData.name}
-                src={`https://www.youtube.com/embed/${vid}?autoplay=1`}
+                src={`https://www.youtube.com/embed/${vid}?controls=0&autoplay=1&modestbranding=1&rel=0&loop=1`}
                 allow="autoplay"
                 allowFullScreen
               ></iframe>

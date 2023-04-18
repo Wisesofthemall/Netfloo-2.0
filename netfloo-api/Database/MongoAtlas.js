@@ -28,9 +28,13 @@ db.run = async function run() {
   }
 };
 
-db.insert = async function insert(movieId, link) {
+db.insert = async function insert(movieId, link, name) {
   await client.connect();
-  const result = await videos.insertOne({ movieId: movieId, link: link });
+  const result = await videos.insertOne({
+    movieId: movieId,
+    link: link,
+    name: name,
+  });
 };
 
 db.find = async function find(movieId) {
@@ -47,7 +51,14 @@ db.find = async function find(movieId) {
   return find;
 };
 
+db.findAll = async function findAll() {
+  await client.connect();
+  const query = {};
+  const videosList = await videos.find(query).toArray();
+  return videosList;
+};
 db.delete = async function del(params) {
   const result = await videos.deleteMany({});
 };
+
 module.exports = db;

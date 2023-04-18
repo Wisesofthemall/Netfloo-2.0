@@ -4,8 +4,6 @@ const axios = require("axios");
 const Atlas = require("../Database/MongoAtlas.js");
 Atlas.run().catch(console.error);
 
-// Atlas.insert(12322143, "youtube.com");
-
 module.exports.addToLikedMovies = async (req, res) => {
   try {
     const { email, data } = req.body;
@@ -93,7 +91,7 @@ module.exports.getYTLink = async (req, res) => {
 
       const response = await axios.get(url);
       const link = response.data.items[0].id.videoId;
-      const data = await Atlas.insert(movieId, link).then(async () => {
+      const data = await Atlas.insert(movieId, link, name).then(async () => {
         return await Atlas.find(movieId);
       });
 
@@ -110,5 +108,14 @@ module.exports.getYTLink = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+module.exports.getAllYTLink = async (req, res) => {
+  try {
+    const all = await Atlas.findAll();
+    return res.json({ msg: "All Video recieve", movies: all });
+  } catch (error) {
+    console.log(console.error());
   }
 };

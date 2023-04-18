@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import shortclip from "../assets/Strangerthingsclip.mp4";
-import MovieLogo from "../assets/Strange.png";
+import logo from "../assets/logo.png";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import styled from "styled-components";
@@ -9,12 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovies, getGenres } from "../store";
 import Slider from "../components/Slider.jsx";
+import axios from "axios";
 export default function Netfloo({ setCurrent }) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [feature, setFeature] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.netfloo.movies);
   const genresLoaded = useSelector((state) => state.netfloo.genresLoaded);
+
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => window.onscroll == null;
@@ -30,14 +32,38 @@ export default function Netfloo({ setCurrent }) {
     }
   }, [dispatch, genresLoaded]);
 
+  const getAllYTLink = async () => {
+    const data = await axios.get("http://localhost:4000/api/user/video/all", {
+      params: {},
+    });
+
+    const Array = data.data.movies;
+    const videoOfChose = Array[Math.floor(Math.random() * Array.length)];
+    setFeature(videoOfChose);
+  };
+  useEffect(() => {
+    getAllYTLink();
+  }, []);
   return (
     <Container>
       <Navbar isScrolled={isScrolled} />
       <div className="hero">
-        <video src={shortclip} autoPlay loop muted></video>
+        {feature ? (
+          <iframe
+            title={feature.movieId}
+            src={`https://www.youtube.com/embed/${feature.link}?controls=0&autoplay=1&modestbranding=1&rel=0&loop=1`}
+            allow="autoplay"
+            allowFullScreen
+          ></iframe>
+        ) : null}
         <div className="container">
           <div className="logo">
-            <img src={MovieLogo} alt="Movie Logo" />
+            {feature ? (
+              <div className="text">
+                {feature.name}
+                <img src={logo} alt="" />
+              </div>
+            ) : null}
           </div>
           <div className="buttons flex">
             <button
@@ -66,7 +92,7 @@ const Container = styled.div`
       filter: brightness(60%);
     }
 
-    video {
+    iframe {
       height: 100vh;
       width: 100vw;
     }
@@ -74,10 +100,15 @@ const Container = styled.div`
       position: absolute;
       bottom: 5rem;
       .logo {
-        img {
+        .text {
           width: 100%;
           height: 100%;
           margin-left: 5rem;
+          font-size: 5rem;
+          img {
+            width: 4rem;
+            height: 4rem;
+          }
         }
       }
       .buttons {
