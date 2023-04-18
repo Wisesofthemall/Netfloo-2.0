@@ -6,20 +6,24 @@ import { BsCheck } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 import styled from "styled-components";
-import video from "../assets/video.mp4";
+import logo from "../assets/logo.png";
+
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeMovieFromLiked } from "../store";
-import { getYTLink } from "../store";
-export default React.memo(function Card({ movieData, isLiked = false }) {
+
+export default React.memo(function Card({
+  movieData,
+  setCurrent,
+  isLiked = false,
+}) {
   const [isHovered, setIsHovered] = useState(false);
   const [email, setEmail] = useState(undefined);
   const [vid, setVid] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const vidy = useSelector((state) => state.netfloo.video);
 
   onAuthStateChanged(firebaseAuth, (currentUser) => {
     if (currentUser) {
@@ -28,11 +32,20 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
       navigate("/login");
     }
   });
+  const getYTLink = async ({ movieId, name }) => {
+    const data = await axios.get("http://localhost:4000/api/user/video", {
+      params: {
+        movieId: movieId,
+        name: name,
+      },
+    });
+
+    setVid(data.data.movies.link);
+  };
 
   useEffect(() => {
-    dispatch(getYTLink({ movieId: movieData.id, name: movieData.name }));
-    setVid(vidy.link);
-  }, []);
+    getYTLink({ movieId: movieData.id, name: movieData.name });
+  }, [movieData.id, movieData.name]);
 
   const addToList = async () => {
     try {
@@ -44,6 +57,7 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
       console.log(error);
     }
   };
+
   return (
     <Container
       onMouseEnter={() => {
@@ -53,22 +67,26 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
         setIsHovered(false);
       }}
     >
+      <img className="logo" src={logo} alt="" />
       <img
+        className="thumbnail"
         src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
         alt="movie"
       />
+
       <div className="name">{movieData.name}</div>
       {isHovered && (
         <div className="hover">
           <div className="image-video-container">
             <img
               onClick={() => {
+                setCurrent(vid);
                 navigate("/player");
               }}
               src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
               alt="movie"
             />
-            {console.log("the vid", vid)}
+
             {vid ? (
               <iframe
                 title={movieData.name}
@@ -146,7 +164,14 @@ const Container = styled.div`
   height: 100%;
   cursor: pointer;
   position: relative;
-  img {
+  .logo {
+    position: inherit;
+    z-index: 5;
+    margin-bottom: -2rem;
+    width :9%;
+    height: 9%;
+  }
+  .thumbnail{
     border-radius: 0.2rem;
     width: 100%;
     height: 100%;
@@ -162,7 +187,7 @@ const Container = styled.div`
     border-radius: 0.3rem;
     box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
     background-color: #181818;
-    transition: 0.3s ease-in-out;
+    transition: 1s ease-in-out;
     .image-video-container {
 
       position: relative;
@@ -208,7 +233,7 @@ const Container = styled.div`
         svg {
           font-size: 2rem;
           cursor: pointer;
-          transition: 0.3s ease-in-out;
+          transition: 1s ease-in-out;
           &:hover {
             color: #b8b8b8;
           }

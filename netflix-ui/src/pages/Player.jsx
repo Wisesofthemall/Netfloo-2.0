@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { BsArrowLeft } from "react-icons/bs";
-import video from "../assets/video.mp4";
 import { useNavigate } from "react-router-dom";
-export default function Player() {
+export default function Player({ current }) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("the current", current);
+  }, [current]);
   return (
     <Container>
       <div className="player">
@@ -15,7 +18,14 @@ export default function Player() {
             }}
           />
         </div>
-        <video src={video} autoPlay loop controls muted></video>
+        {current ? (
+          <iframe
+            title={"movieData.name"}
+            src={`https://www.youtube.com/embed/${current}?autoplay=1`}
+            allow="autoplay"
+            allowFullScreen
+          ></iframe>
+        ) : null}
       </div>
     </Container>
   );

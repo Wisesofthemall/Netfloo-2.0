@@ -1,12 +1,16 @@
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
+  signInWithPopup,
 } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
+import google from "../assets/glogo.webp";
+
 import { firebaseAuth } from "../utils/firebase-config";
 
 export default function Signup() {
@@ -20,6 +24,13 @@ export default function Signup() {
     try {
       const { email, password } = formValue;
       await createUserWithEmailAndPassword(firebaseAuth, email, password);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleGoogle = async () => {
+    try {
+      signInWithPopup(firebaseAuth, new GoogleAuthProvider());
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +82,10 @@ export default function Signup() {
               <button onClick={() => setShowPassword(true)}>Get started</button>
             )}
           </div>
-          <button onClick={handleSignIn}>Sign up</button>
+          <div className="">
+            <button onClick={handleSignIn}>Sign up</button>
+            <img onClick={handleGoogle} src={google} alt="" />
+          </div>
         </div>
       </div>
     </Container>
@@ -79,6 +93,7 @@ export default function Signup() {
 }
 const Container = styled.div`
   position: relative;
+
   .content {
     position: absolute;
     top: 0;
@@ -88,6 +103,12 @@ const Container = styled.div`
     width: 100vw;
     display: grid;
     grid-template-rows: 15vh 85vh;
+    img {
+      margin-left: 1rem;
+      margin-bottom: -1rem;
+      width: 3rem;
+      height: 3rem;
+    }
     .body {
       gap: 1rem;
       .text {

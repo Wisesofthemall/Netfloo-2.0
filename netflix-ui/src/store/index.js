@@ -104,20 +104,6 @@ export const removeMovieFromLiked = createAsyncThunk(
   },
 );
 
-export const getYTLink = createAsyncThunk(
-  "netfloo/video",
-  async ({ movieId, name }) => {
-    const data = await axios.get("http://localhost:4000/api/user/video", {
-      params: {
-        movieId: movieId,
-        name: name,
-      },
-    });
-
-    return data.data.movies;
-  },
-);
-
 const NetflooSlice = createSlice({
   name: "Netfloo",
   initialState,
@@ -137,9 +123,6 @@ const NetflooSlice = createSlice({
     });
     builder.addCase(removeMovieFromLiked.fulfilled, (state, action) => {
       state.movies = action.payload;
-    });
-    builder.addCase(getYTLink.fulfilled, (state, action) => {
-      state.video = action.payload;
     });
   },
 });
