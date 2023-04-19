@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { BsArrowLeft } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-export default function Player({ current }) {
+export default React.memo(function Player({ current }) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function Player({ current }) {
       </div>
     </Container>
   );
-}
+});
 const Container = styled.div`
   .player {
     width: 100vw;

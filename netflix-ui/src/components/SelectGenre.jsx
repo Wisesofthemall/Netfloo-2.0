@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { fetchDataByGenre } from "../store";
 
-export default function SelectGenre({ genres, type }) {
+export default React.memo(function SelectGenre({ genres, type }) {
   const dispatch = useDispatch();
   return (
     <Select
@@ -23,7 +23,7 @@ export default function SelectGenre({ genres, type }) {
         : null}
     </Select>
   );
-}
+});
 
 const Select = styled.select`
   margin-left: 5rem;

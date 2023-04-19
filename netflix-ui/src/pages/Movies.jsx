@@ -8,9 +8,12 @@ import Navbar from "../components/Navbar";
 import Slider from "../components/Slider.jsx";
 import NotAvailable from "../components/NotAvailable.jsx";
 import SelectGenre from "../components/SelectGenre";
+import SearchResults from "../components/SearchResults";
 
-export default function Movies() {
+export default React.memo(function Movies({ setCurrent }) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [query, setQuery] = useState(null);
+  const [showResults, setShowResults] = useState(false);
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.netfloo.movies);
   const genres = useSelector((state) => state.netfloo.genres);
@@ -33,20 +36,37 @@ export default function Movies() {
       dispatch(fetchMovies({ type: "movies" }));
     }
   }, [dispatch, genresLoaded]);
+  useEffect(() => {
+    if (query === null || query === "") {
+      setShowResults(false);
+    } else {
+      setShowResults(true);
+    }
+  }, [query]);
   return (
     <Container>
       <div className="navbar">
-        <Navbar isScrolled={isScrolled} />
+        <Navbar isScrolled={isScrolled} setQuery={setQuery} />
       </div>
 
       <div className="data">
         <SelectGenre genres={genres} type="movie" />
 
-        {movies ? <Slider movies={movies} /> : <NotAvailable />}
+        {!showResults ? (
+          <div className="">
+            {movies ? <Slider movies={movies} /> : <NotAvailable />}
+          </div>
+        ) : (
+          <SearchResults
+            movies={movies}
+            query={query}
+            setCurrent={setCurrent}
+          />
+        )}
       </div>
     </Container>
   );
-}
+});
 const Container = styled.div`
   .data {
     margin-top: 8rem;

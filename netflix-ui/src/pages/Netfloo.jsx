@@ -9,9 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMovies, getGenres } from "../store";
 import Slider from "../components/Slider.jsx";
 import axios from "axios";
-export default function Netfloo({ setCurrent }) {
+import SearchResults from "../components/SearchResults";
+export default React.memo(function Netfloo({ setCurrent }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [feature, setFeature] = useState(null);
+  const [query, setQuery] = useState(null);
+  const [showResults, setShowResults] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.netfloo.movies);
@@ -32,6 +35,14 @@ export default function Netfloo({ setCurrent }) {
     }
   }, [dispatch, genresLoaded]);
 
+  useEffect(() => {
+    if (query === null || query === "") {
+      setShowResults(false);
+    } else {
+      setShowResults(true);
+    }
+  }, [query]);
+
   const getAllYTLink = async () => {
     const data = await axios.get("http://localhost:4000/api/user/video/all", {
       params: {},
@@ -46,7 +57,7 @@ export default function Netfloo({ setCurrent }) {
   }, []);
   return (
     <Container>
-      <Navbar isScrolled={isScrolled} />
+      <Navbar isScrolled={isScrolled} setQuery={setQuery} />
       <div className="hero">
         {feature ? (
           <iframe
@@ -80,10 +91,14 @@ export default function Netfloo({ setCurrent }) {
           </div>
         </div>
       </div>
-      <Slider movies={movies} setCurrent={setCurrent} />
+      {!showResults ? (
+        <Slider movies={movies} setCurrent={setCurrent} />
+      ) : (
+        <SearchResults movies={movies} query={query} setCurrent={setCurrent} />
+      )}
     </Container>
   );
-}
+});
 const Container = styled.div`
   background-color: black;
   .hero {
@@ -101,11 +116,12 @@ const Container = styled.div`
       bottom: 5rem;
       .logo {
         .text {
-          width: 100%;
+          width: 60%;
           height: 100%;
           margin-left: 5rem;
-          font-size: 5rem;
+          font-size: 4rem;
           img {
+            margin-bottom: -0.5rem;
             width: 4rem;
             height: 4rem;
           }

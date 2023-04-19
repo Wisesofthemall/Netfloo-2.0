@@ -58,6 +58,7 @@ db.findAll = async function findAll() {
   return videosList;
 };
 db.delete = async function del(params) {
+  //THE PURGEEEEEEEEEEEEEEE
   const result = await videos.deleteMany({});
 };
 

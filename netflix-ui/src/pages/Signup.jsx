@@ -13,7 +13,7 @@ import google from "../assets/glogo.webp";
 
 import { firebaseAuth } from "../utils/firebase-config";
 
-export default function Signup() {
+export default React.memo(function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -90,7 +90,7 @@ export default function Signup() {
       </div>
     </Container>
   );
-}
+});
 const Container = styled.div`
   position: relative;
 

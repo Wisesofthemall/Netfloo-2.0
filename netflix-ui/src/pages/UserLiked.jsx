@@ -8,9 +8,12 @@ import Navbar from "../components/Navbar";
 
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
+import SearchResults from "../components/SearchResults";
 
-export default function UserLiked() {
+export default React.memo(function UserLiked({ setCurrent }) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [query, setQuery] = useState(null);
+  const [showResults, setShowResults] = useState(false);
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.netfloo.movies);
   const [email, setEmail] = useState(undefined);
@@ -36,7 +39,7 @@ export default function UserLiked() {
 
   return (
     <Container>
-      <Navbar isScrolled={isScrolled} />
+      <Navbar isScrolled={isScrolled} setQuery={setQuery} />
       <div className="content flex column">
         <h1> My List</h1>
         <div className="grid flex">
@@ -56,7 +59,7 @@ export default function UserLiked() {
       </div>
     </Container>
   );
-}
+});
 const Container = styled.div`
   .content {
     margin: 2.3rem;

@@ -11,7 +11,7 @@ import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
 import { firebaseAuth } from "../utils/firebase-config";
 import google from "../assets/glogo.webp";
-export default function Login() {
+export default React.memo(function Login() {
   const navigate = useNavigate();
 
   const [formValue, setFormValue] = useState({
@@ -88,7 +88,7 @@ export default function Login() {
       </div>
     </Container>
   );
-}
+});
 const Container = styled.div`
   position: relative;
   .content {
