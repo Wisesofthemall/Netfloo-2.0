@@ -12,8 +12,6 @@ import SearchResults from "../components/SearchResults";
 
 export default React.memo(function UserLiked({ setCurrent }) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [query, setQuery] = useState(null);
-  const [showResults, setShowResults] = useState(false);
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.netfloo.movies);
   const [email, setEmail] = useState(undefined);
@@ -39,7 +37,7 @@ export default React.memo(function UserLiked({ setCurrent }) {
 
   return (
     <Container>
-      <Navbar isScrolled={isScrolled} setQuery={setQuery} />
+      <Navbar isScrolled={isScrolled} />
       <div className="content flex column">
         <h1> My List</h1>
         <div className="grid flex">

@@ -8,7 +8,7 @@ import logo from "../assets/logo.png";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 
-export default React.memo(function Navbar({ isScrolled, setQuery }) {
+export default React.memo(function Navbar({ isScrolled, setQuery = () => {} }) {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
