@@ -9,23 +9,28 @@ import TVshows from "./pages/TVshows";
 import UserLiked from "./pages/UserLiked";
 export default function App() {
   const [current, setCurrent] = useState(null);
+
+  const onCurrent = (value) => {
+    setCurrent(value);
+    console.log("current is", value);
+  };
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
-        <Route exact path="/" element={<Netfloo setCurrent={setCurrent} />} />
+        <Route exact path="/" element={<Netfloo onCurrent={onCurrent} />} />
         <Route
           exact
           path="/movies"
-          element={<Movies setCurrent={setCurrent} />}
+          element={<Movies onCurrent={onCurrent} />}
         />
         <Route exact path="/player" element={<Player current={current} />} />
-        <Route exact path="/tv" element={<TVshows setCurrent={setCurrent} />} />
+        <Route exact path="/tv" element={<TVshows onCurrent={onCurrent} />} />
         <Route
           exact
           path="/mylist"
-          element={<UserLiked setCurrent={setCurrent} />}
+          element={<UserLiked onCurrent={onCurrent} />}
         />
       </Routes>
     </BrowserRouter>

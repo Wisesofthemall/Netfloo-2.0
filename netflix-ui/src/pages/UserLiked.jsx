@@ -8,9 +8,8 @@ import Navbar from "../components/Navbar";
 
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
-import SearchResults from "../components/SearchResults";
 
-export default React.memo(function UserLiked({ setCurrent }) {
+export default React.memo(function UserLiked({ onCurrent }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.netfloo.movies);

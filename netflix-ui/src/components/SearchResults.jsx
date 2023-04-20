@@ -2,12 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Card from "./Card";
 import styled from "styled-components";
-import { BiNoEntry } from "react-icons/bi";
-export default React.memo(function SearchResults({
-  movies,
-  query,
-  setCurrent,
-}) {
+export default React.memo(function SearchResults({ movies, query, onCurrent }) {
   const [filter, setFilter] = useState([]);
   const [showControls, setShowControls] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(0);
@@ -51,11 +46,11 @@ export default React.memo(function SearchResults({
           <AiOutlineLeft onClick={() => handleDirection("left")} />
         </div>
         <div className="flex slider" ref={listRef}>
-          {filter.length != 0 ? (
+          {filter.length !== 0 ? (
             filter.map((movie, index) => {
               return (
                 <Card
-                  setCurrent={setCurrent}
+                  onCurrent={onCurrent}
                   key={`${index} ${movie.id}`}
                   movieData={movie}
                   index={index}

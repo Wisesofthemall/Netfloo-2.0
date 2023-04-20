@@ -6,11 +6,11 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies, getGenres } from "../store";
+import { fetchMovies, getCurrent, getGenres } from "../store";
 import Slider from "../components/Slider.jsx";
 import axios from "axios";
 import SearchResults from "../components/SearchResults";
-export default React.memo(function Netfloo({ setCurrent }) {
+export default React.memo(function Netfloo({ onCurrent }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [feature, setFeature] = useState(null);
   const [query, setQuery] = useState(null);
@@ -80,21 +80,20 @@ export default React.memo(function Netfloo({ setCurrent }) {
             <button
               className="flex j-center a-center"
               onClick={() => {
+                console.log(feature.link);
+                dispatch(getCurrent(feature.link));
                 navigate("/player");
               }}
             >
               <FaPlay /> Play
             </button>
-            <button className="flex j-center a-center">
-              <AiOutlineInfoCircle /> More Info
-            </button>
           </div>
         </div>
       </div>
       {!showResults ? (
-        <Slider movies={movies} setCurrent={setCurrent} />
+        <Slider movies={movies} onCurrent={onCurrent} />
       ) : (
-        <SearchResults movies={movies} query={query} setCurrent={setCurrent} />
+        <SearchResults movies={movies} query={query} onCurrent={onCurrent} />
       )}
     </Container>
   );

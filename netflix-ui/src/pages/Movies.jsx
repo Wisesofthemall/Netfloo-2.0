@@ -10,7 +10,7 @@ import NotAvailable from "../components/NotAvailable.jsx";
 import SelectGenre from "../components/SelectGenre";
 import SearchResults from "../components/SearchResults";
 
-export default React.memo(function Movies({ setCurrent }) {
+export default React.memo(function Movies({ onCurrent }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [query, setQuery] = useState(null);
   const [showResults, setShowResults] = useState(false);
@@ -57,11 +57,7 @@ export default React.memo(function Movies({ setCurrent }) {
             {movies ? <Slider movies={movies} /> : <NotAvailable />}
           </div>
         ) : (
-          <SearchResults
-            movies={movies}
-            query={query}
-            setCurrent={setCurrent}
-          />
+          <SearchResults movies={movies} query={query} onCurrent={onCurrent} />
         )}
       </div>
     </Container>

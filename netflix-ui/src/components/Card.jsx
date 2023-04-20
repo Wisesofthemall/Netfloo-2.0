@@ -12,11 +12,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { removeMovieFromLiked } from "../store";
+import { getCurrent, removeMovieFromLiked } from "../store";
 
 export default React.memo(function Card({
   movieData,
-  setCurrent,
+  onCurrent,
   isLiked = false,
 }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -79,8 +79,8 @@ export default React.memo(function Card({
         <div className="hover">
           <div className="image-video-container">
             <img
-              onClick={() => {
-                setCurrent(vid);
+              onClick={async () => {
+                dispatch(getCurrent(vid));
                 navigate("/player");
               }}
               src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
@@ -98,6 +98,7 @@ export default React.memo(function Card({
 
             <h3
               onClick={() => {
+                dispatch(getCurrent(vid));
                 navigate("/player");
               }}
               className="name"
@@ -109,6 +110,7 @@ export default React.memo(function Card({
                 <div className="controls flex">
                   <IoPlayCircleSharp
                     onClick={() => {
+                      dispatch(getCurrent(vid));
                       navigate("/player");
                     }}
                     title="play"

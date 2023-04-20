@@ -23,8 +23,6 @@ db.run = async function run() {
     //console.log("VIDEO LIST", videosList);
   } catch (err) {
     console.error(err);
-  } finally {
-    await client.close();
   }
 };
 

@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Card from "./Card";
 import styled from "styled-components";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-export default React.memo(function CardSlider({ data, title, setCurrent }) {
+export default React.memo(function CardSlider({ data, title, onCurrent }) {
   const [showControls, setShowControls] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(0);
   const listRef = useRef();
@@ -40,7 +40,7 @@ export default React.memo(function CardSlider({ data, title, setCurrent }) {
           {data.map((movie, index) => {
             return (
               <Card
-                setCurrent={setCurrent}
+                onCurrent={onCurrent}
                 key={`${index} ${movie.id}`}
                 movieData={movie}
                 index={index}

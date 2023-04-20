@@ -14,7 +14,13 @@ const initialState = {
   genresLoaded: false,
   genres: [],
   video: [],
+  current: null,
 };
+
+export const getCurrent = createAsyncThunk("netfloo/current", (value) => {
+  console.log("THE CURRENrT", value);
+  return value;
+});
 
 export const getGenres = createAsyncThunk("netfloo/genres", async () => {
   const {
@@ -100,6 +106,7 @@ export const removeMovieFromLiked = createAsyncThunk(
       email,
       movieId,
     });
+    console.log("HERE");
     return movies;
   },
 );
@@ -123,6 +130,9 @@ const NetflooSlice = createSlice({
     });
     builder.addCase(removeMovieFromLiked.fulfilled, (state, action) => {
       state.movies = action.payload;
+    });
+    builder.addCase(getCurrent.fulfilled, (state, action) => {
+      state.current = action.payload;
     });
   },
 });

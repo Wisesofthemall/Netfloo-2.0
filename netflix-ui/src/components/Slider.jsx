@@ -1,7 +1,7 @@
 import React from "react";
 import CardSlider from "./CardSlider";
 
-export default React.memo(function Slider({ movies, setCurrent }) {
+export default React.memo(function Slider({ movies, onCurrent }) {
   const getMoviesFromRange = (from, to) => {
     if (movies === undefined) {
       return [];
@@ -14,32 +14,32 @@ export default React.memo(function Slider({ movies, setCurrent }) {
       <CardSlider
         title="Trending Now"
         data={getMoviesFromRange(0, 10)}
-        setCurrent={setCurrent}
+        onCurrent={onCurrent}
       />
       <CardSlider
         title="New Relases"
         data={getMoviesFromRange(10, 20)}
-        setCurrent={setCurrent}
+        onCurrent={onCurrent}
       />
       <CardSlider
         title="Recommended"
         data={getMoviesFromRange(20, 30)}
-        setCurrent={setCurrent}
+        onCurrent={onCurrent}
       />
       <CardSlider
         title="Popular"
         data={getMoviesFromRange(30, 40)}
-        setCurrent={setCurrent}
+        onCurrent={onCurrent}
       />
       <CardSlider
         title="Only on Netfloo"
         data={getMoviesFromRange(40, 50)}
-        setCurrent={setCurrent}
+        onCurrent={onCurrent}
       />
       <CardSlider
         title="Bingeworthy"
         data={getMoviesFromRange(50, 60)}
-        setCurrent={setCurrent}
+        onCurrent={onCurrent}
       />
     </div>
   );
