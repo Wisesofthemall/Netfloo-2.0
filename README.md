@@ -51,6 +51,10 @@ https://user-images.githubusercontent.com/101741874/233517127-807ce763-74e1-404d
 
 https://user-images.githubusercontent.com/101741874/233518080-b52461ff-e32e-471d-955b-91c96d0f630b.mp4
 
+-My list
+
+[NMyList.webm](https://user-images.githubusercontent.com/101741874/233520969-88cd2d15-bca3-4c46-ab91-8931c7a21602.webm)
+
 
 
 ## Technologies
