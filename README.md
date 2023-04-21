@@ -18,7 +18,7 @@ Netfloo 2.0 currently has the following features:
 
 - Browse movies and TV shows by category
 - Search for movies and TV shows
-- View details of a movie or TV show, including a trailer, cast, and synopsis
+- View details of a movie or TV show, including a trailer, genres, and title
 - Add movies and TV shows to your watchlist
 - Log in with your Google account to sync your watchlist across devices
 
