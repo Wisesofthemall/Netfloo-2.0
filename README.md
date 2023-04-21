@@ -30,6 +30,12 @@ Netfloo 2.0 currently has the following features:
 https://user-images.githubusercontent.com/101741874/233515455-68bddb96-2b9b-4e12-a114-a03b6a8d6735.mp4
 <img width="1440" alt="Screen Shot 2023-04-20 at 8 50 03 PM" src="https://user-images.githubusercontent.com/101741874/233515575-3d827593-0e46-49cf-b047-5a4b6c5f1053.png">
 
+- Use Firebase to prevent user from entering the app without logging in and also to provide a Google authenication
+[NLogin.webm](https://user-images.githubusercontent.com/101741874/233516141-89b0d428-432a-47fe-baf1-1ca5ef5955e7.webm)
+
+- Use MongoAtlas to store the youtube API data, to prevent calling on the same data twice, 
+
+<img width="1440" alt="Screen Shot 2023-04-20 at 9 01 40 PM" src="https://user-images.githubusercontent.com/101741874/233516694-229b0cbf-8303-472b-9d70-39af007f4475.png">
 
 ## Technologies
 
@@ -37,6 +43,7 @@ Netfloo 2.0 uses the following technologies:
 
 - [React](https://reactjs.org/) - a JavaScript library for building user interfaces
 - [Tailwind CSS](https://tailwindcss.com/) - a utility-first CSS framework
+- [MongoAtlas](https://www.mongodb.com/atlas/database) - a multi-cloud database.
 - [MongooseDB](https://mongoosejs.com/) - an object modeling tool for MongoDB
 - [Redux](https://redux.js.org/) - a predictable state container for JavaScript apps
 - [Express](https://expressjs.com/) - a fast, unopinionated, minimalist web framework for Node.js
