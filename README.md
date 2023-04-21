@@ -74,11 +74,10 @@ Netfloo 2.0 uses the following technologies:
 To run Netfloo 2.0 on your local machine, follow these steps:
 
 1. Clone the repository to your local machine using `git clone https://github.com/your-username/netfloo-2.0.git`
-2. Change directory to netflix/ui 
 2. Install the dependencies using `npm install`
 4. Start the weback using `npm run start`
-5. Create a second terminal and change directory to netflix/ai
-6. In that second terminal use `npm run start`
+5. Create a second terminal
+6. In that second terminal use `npm run server`
 
 
 ## Usage
