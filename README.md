@@ -15,11 +15,21 @@ Netfloo 2.0 is a Netflix clone built using React, Tailwind CSS, MongooseDB, Redu
 
 Netfloo 2.0 currently has the following features:
 
+
 - Browse movies and TV shows by category
 - Search for movies and TV shows
 - View details of a movie or TV show, including a trailer, cast, and synopsis
 - Add movies and TV shows to your watchlist
 - Log in with your Google account to sync your watchlist across devices
+
+## Snippets
+
+- Use Firebase to authenicate users to use the app with either google or email
+
+
+https://user-images.githubusercontent.com/101741874/233515455-68bddb96-2b9b-4e12-a114-a03b6a8d6735.mp4
+<img width="1440" alt="Screen Shot 2023-04-20 at 8 50 03 PM" src="https://user-images.githubusercontent.com/101741874/233515575-3d827593-0e46-49cf-b047-5a4b6c5f1053.png">
+
 
 ## Technologies
 
