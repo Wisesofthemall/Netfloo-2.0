@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cd netflix-ui && npm run start",
-    "server": "cd netfloo-api && npm run start"
+    "build": "cd netfloo-api && npm run start"
   },
   "keywords": [],
   "author": "",
