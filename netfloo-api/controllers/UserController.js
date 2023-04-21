@@ -87,7 +87,6 @@ module.exports.getYTLink = async (req, res) => {
     const find = await Atlas.find(movieId);
 
     if (!find) {
-      console.log("UNIQUE", name, YOUTUBE_API_KEY);
       const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${name} trailer&type=video&key=${YOUTUBE_API_KEY}`;
 
       const response = await axios.get(url);
@@ -99,7 +98,6 @@ module.exports.getYTLink = async (req, res) => {
 
       return res.json({ msg: "Video recieve", movies: data });
     } else {
-      console.log("not unique", name);
       const unique = await Atlas.find(movieId).then((err, data) => {
         if (err) {
           return err;
