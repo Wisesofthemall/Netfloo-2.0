@@ -38,7 +38,7 @@ https://user-images.githubusercontent.com/101741874/233515455-68bddb96-2b9b-4e12
 <img width="1440" alt="Screen Shot 2023-04-20 at 9 01 40 PM" src="https://user-images.githubusercontent.com/101741874/233516694-229b0cbf-8303-472b-9d70-39af007f4475.png">
 
 - Mainpage 
-
+- Featuring a main movie display, on hover it will show you a preview of the coresponding movie, can scroll on each card slider, and on clicking play it will navigate you to a screen with the expanded video
 
 https://user-images.githubusercontent.com/101741874/233517127-807ce763-74e1-404d-b74f-fc2eeab05784.mp4
 
