@@ -1,5 +1,5 @@
 const User = require("../models/UserModels.js");
-var YOUTUBE_API_KEY = "AIzaSyBJxHFFxPYOos0CYQDFNnge0qHnvUYSBE8";
+var YOUTUBE_API_KEY = /* Place your Youtube API here */;
 const axios = require("axios");
 const Atlas = require("../Database/MongoAtlas.js");
 Atlas.run().catch(console.error);
