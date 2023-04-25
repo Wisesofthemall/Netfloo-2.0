@@ -77,7 +77,7 @@ To run Netfloo 2.0 on your local machine, follow these steps:
 2. Install the dependencies using `npm install`
 4. Start the weback using `npm run start`
 5. Create a second terminal
-6. In that second terminal use `npm run server`
+6. In that second terminal use `npm run build`
 
 
 ## Usage
