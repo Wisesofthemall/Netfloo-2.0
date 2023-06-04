@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 
 // Replace the following with your MongoDB Atlas connection string
-const uri = "mongodb+srv://Lovinson:01302004@cluster0.vf5mqzm.mongodb.net/test";
+const uri = "Add link here";
 
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
