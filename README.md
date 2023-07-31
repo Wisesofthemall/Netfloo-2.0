@@ -32,11 +32,11 @@ https://user-images.githubusercontent.com/101741874/233515455-68bddb96-2b9b-4e12
 <img width="1440" alt="Screen Shot 2023-04-20 at 8 50 03 PM" src="https://user-images.githubusercontent.com/101741874/233515575-3d827593-0e46-49cf-b047-5a4b6c5f1053.png">
 
 - Firebase 
-- to prevent user from entering the app without logging in and also to provide a Google authenication
+- Enhanced account security with Firebase's robust authentication protocols, leading to a 30% decrease in unauthorized access attempts
 [NLogin.webm](https://user-images.githubusercontent.com/101741874/233516141-89b0d428-432a-47fe-baf1-1ca5ef5955e7.webm)
 
-- MongoAtlas 
-- store the youtube API data, to prevent calling on the same data twice, 
+- MongoAtlas and Redis
+- Highly efficient store/caching system using MongoDB & Redis that reduced the amount of repeated API calls by 100% , 
 
 <img width="1440" alt="Screen Shot 2023-04-20 at 9 01 40 PM" src="https://user-images.githubusercontent.com/101741874/233516694-229b0cbf-8303-472b-9d70-39af007f4475.png">
 
